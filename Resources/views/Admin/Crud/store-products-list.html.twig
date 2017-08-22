@@ -1,0 +1,12 @@
+{% if products | length > 0 and products is not null %}
+	<ul class="list-group">
+		{% for product in products %}
+			<li class="list-group-item">
+				<input type="checkbox" value="{{ product.id }}" data-product-class="{{ product.class_name }}" id="store-product-{{ product.id }}" class="store-product-checkbox category-checkbox" {% if is_checked is defined and true == is_checked %}checked{% endif %}>
+				<label for="store-product-{{ product.id }}">{{ product.title }}</label>
+			</li>
+		{% endfor %}
+	</ul>
+{% else %}
+	<p>{{ 'ecommerce.no_products_found' | trans }}</p>
+{% endif %}

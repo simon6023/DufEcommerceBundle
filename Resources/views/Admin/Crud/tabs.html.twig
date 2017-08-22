@@ -1,0 +1,61 @@
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a data-toggle="tab" href="#informations">{{ 'ecommerce.informations' | trans }}</a>
+	</li>
+
+	{% if price_type is defined and price_type is not null %}
+		<li>
+			<a data-toggle="tab" href="#price">{{ 'ecommerce.price' | trans }}</a>
+		</li>
+	{% endif %}
+
+	<li>
+		<a data-toggle="tab" href="#images">{{ 'ecommerce.images' | trans }}</a>
+	</li>
+
+	<li>
+		<a data-toggle="tab" href="#categories">{{ 'ecommerce.categories' | trans }}</a>
+	</li>
+</ul>
+
+<div class="tab-content ecommerce">
+	<div id="informations" class="tab-pane fade in active">
+		{% for form_property in form_properties %}
+			{% set display_form_field = true %}
+			{% if price_type is defined and price_type is not null and form_property == 'price' %}
+				{% set display_form_field = false %}
+			{% elseif price_type is defined and price_type is not null and form_property == 'prices' %}
+				{% set display_form_field = false %}
+			{% elseif form_property == 'images' or form_property == 'cover' %}
+				{% set display_form_field = false %}
+			{% endif %}
+
+			{% if display_form_field %}
+				{{ form_widget(attribute(create_form, form_property)) }}
+			{% endif %}
+		{% endfor %}
+	</div>
+
+	{% if price_type is defined and price_type is not null %}
+		<div id="price" class="tab-pane fade in">
+			{% if price_type == 'single' %}
+				{{ form_widget(create_form.price) }}
+			{% elseif price_type == 'multiple' %}
+				{{ form_widget(create_form.prices) }}
+			{% endif %}
+		</div>
+	{% endif %}
+
+	<div id="images" class="tab-pane fade in">
+		{{ form_widget(create_form.cover) }}
+		{{ form_widget(create_form.images) }}
+	</div>
+
+	<div id="categories" class="tab-pane fade in">
+		{% if categories is defined and categories is not null %}
+			{% include 'DufAdminBundle:Form:category-tree-crud.html.twig' with { 'start' : true } %}
+		{% else %}
+			<p class="error">No categories defined</p>
+		{% endif %}
+	</div>
+</div>

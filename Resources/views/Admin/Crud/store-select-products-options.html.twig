@@ -1,0 +1,15 @@
+{% set prefix = '' %}
+{% if level is defined and level > 0 %}
+	{% for i in 1..level %}
+	    {% set prefix = prefix ~ '-' %}
+	{% endfor %}
+{% endif %}
+
+{% for category in categories %}
+	<option value="{{ category.id }}">{{ prefix ~ ' ' ~ category.title }}</option>
+
+	{% if category.__children is defined and category.__children | length > 0 %}
+		{% set level = level + 1 %}
+		{% include 'DufECommerceBundle:Admin\\Crud:store-select-products-options.html.twig' with { 'categories' : category.__children } %}
+	{% endif %}
+{% endfor %}

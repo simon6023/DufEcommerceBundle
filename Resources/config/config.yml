@@ -1,0 +1,9 @@
+twig:
+    globals:
+        dufecommerce: "@duf_ecommerce.dufecommerce"
+        dufecommerce_cart: "@duf_ecommerce.dufecommercecart"
+
+# FOS JS Routing configuration
+fos_js_routing:
+    routes_to_expose:
+        - duf_e_commerce_get_products_by_category

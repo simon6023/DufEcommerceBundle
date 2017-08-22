@@ -1,0 +1,8 @@
+services:
+   duf_ecommerce.dufecommerce:
+       class: Duf\ECommerceBundle\Service\DufECommerce
+       arguments: ['@service_container', '@doctrine.orm.entity_manager', '@router']
+
+   duf_ecommerce.dufecommercecart:
+       class: Duf\ECommerceBundle\Service\DufECommerceCart
+       arguments: ['@service_container', '@doctrine.orm.entity_manager', '@router', '@security.token_storage']

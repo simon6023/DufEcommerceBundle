@@ -1,0 +1,3 @@
+duf_ecommerce_add_to_cart:
+    path:     /duf-ecommerce/add-to-cart/{product_id}/{encoded_product_class}
+    defaults: { _controller: DufECommerceBundle:Cart:addToCart }

@@ -1,0 +1,8 @@
+duf_e_commerce_get_products_by_category:
+    path:     /get-products/by-category/{category_id}
+    defaults: { _controller: DufECommerceBundle:Admin\Products:getProductsByCategory }
+    methods: [POST]
+
+duf_ecommerce_front_cart:
+    resource: "@DufECommerceBundle/Resources/config/routing/front_cart.yml"
+    prefix:   /cart

@@ -1,0 +1,16 @@
+<div class="box">
+	<div class="box-body">
+		{{ form_widget(create_form.enabled) }}
+		{{ form_widget(create_form.is_virtual) }}
+
+		<div class="dufecommerce-address-component">
+			{# Google Fast Search #}
+			<label for="ecommerce-location-search">Search location</label>
+			<input type="text" id="ecommerce-location-search" placeholder="Search location" class="form-control">
+			<div id="ecommerce-map-picker" class="crud-map-picker"></div>
+
+			{{ form_widget(create_form.latitude) }}
+			{{ form_widget(create_form.longitude) }}
+		</div>
+	</div>
+</div>

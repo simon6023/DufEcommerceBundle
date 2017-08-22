@@ -1,0 +1,25 @@
+{% if categories_class is defined %}
+	{% if categories is defined and categories is not null %}
+		{% set level = 0 %}
+
+		<div class="row">
+			<div class="col-md-6">
+				<select id="duf-ecommerce-store-products-search" class="form-control" data-category-entity="{{ categories_class }}">
+					<option value="0">Select category</option>
+
+					{% include 'DufECommerceBundle:Admin\\Crud:store-select-products-options.html.twig' %}
+				</select>
+
+				<div id="store-products-list-ajax-container"></div>
+			</div>
+
+			<div class="col-md-6" id="store-products-list-container">
+				{% if products is defined and products | length > 0 %}
+					<div class="store-selected-products">
+						{% include 'DufECommerceBundle:Admin\\Crud:store-products-list.html.twig' with { 'is_checked' : true } %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+{% endif %}

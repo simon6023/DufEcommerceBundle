@@ -1,0 +1,84 @@
+<div class="{% if edit is defined and true == edit %}col-md-12{% else %}col-md-8{% endif %}">
+	{{ form_widget(create_form.name) }}
+
+	<fieldset class="dufecommerce-address-component">
+		<legend>Address</legend>
+
+		<div class="well">
+			<div class="store-md-6">
+				{{ form_widget(create_form.address) }}
+				{{ form_widget(create_form.zipcode) }}
+				{{ form_widget(create_form.country) }}
+			</div>
+
+			<div class="store-md-6">
+				{{ form_widget(create_form.address2) }}
+				{{ form_widget(create_form.city) }}
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Contact</legend>
+
+		<div class="well">
+			{{ form_widget(create_form.url) }}
+			{{ form_widget(create_form.email) }}
+			{{ form_widget(create_form.phone) }}
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>Products</legend>
+
+		<select name="duf_admin_generic[products][]" class="hidden" id="duf-admin-store-products" multiple>
+			{% if products is defined and products | length > 0 %}
+				{% for product in products %}
+					<option value="{{ product.id ~ '|' ~ product.class_name }}" selected>{{ product.class_name }}</option>
+				{% endfor %}
+			{% endif %}
+		</select>
+
+		<div class="well">
+			{% if categories is defined and categories is not null %}
+				{% include 'DufECommerceBundle:Admin\\Crud:store-select-products.html.twig' with { 'start' : true } %}
+			{% else %}
+				<p class="error">No categories defined</p>
+			{% endif %}
+		</div>
+	</fieldset>
+
+	{% for form_property in form_properties %}
+		{% set display_form_field = true %}
+
+		{% 
+			if form_property == 'enabled' or form_property == 'latitude' 
+		   	or form_property == 'longitude' or form_property == 'is_virtual' 
+		   	or form_property == 'email' or form_property == 'url' 
+		   	or form_property == 'phone' 
+		%}
+			{% set display_form_field = false %}
+		{% endif %}
+
+		{% if display_form_field %}
+			{{ form_widget(attribute(create_form, form_property)) }}
+		{% endif %}
+	{% endfor %}
+</div>
+
+{% if edit is not defined or edit == false %}
+	<div class="col-md-4">
+		{{ form_widget(create_form.enabled) }}
+		{{ form_widget(create_form.is_virtual) }}
+
+		<div class="dufecommerce-address-component">
+			{# Google Fast Search #}
+			<label for="ecommerce-location-search">Search location</label>
+			<input type="text" id="ecommerce-location-search" placeholder="Search location" class="form-control">
+			<div id="ecommerce-map-picker" class="crud-map-picker"></div>
+
+			{{ form_widget(create_form.latitude) }}
+			{{ form_widget(create_form.longitude) }}
+		</div>
+	</div>
+{% endif %}
